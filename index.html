@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>:root{color-scheme:light}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Mudroom Tile Book</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#e9e8e4;--surface:#f6f5f2;--ink:#1d2226;--muted:#5d6468;--line:#cfcdc7;--accent:#1f4a57;--accent-ink:#f6f5f2;--grout:#cfcbc2;--chip:#dfddd8;
+  --display:"Archivo","Arial Narrow",Arial,sans-serif;--mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15181a;--surface:#1e2225;--ink:#e8e5de;--muted:#9aa1a4;--line:#343a3e;--accent:#8cc0cc;--accent-ink:#11181b;--grout:#3a3f42;--chip:#2a2f33;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#15181a;--surface:#1e2225;--ink:#e8e5de;--muted:#9aa1a4;--line:#343a3e;--accent:#8cc0cc;--accent-ink:#11181b;--grout:#3a3f42;--chip:#2a2f33;color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font-family:var(--display);font-stretch:100%;line-height:1.5}
+.wrap{max-width:1240px;margin:0 auto;padding-inline:20px;padding-block:28px 64px;display:grid;gap:28px}
+header{display:grid;gap:14px}
+h1{font-size:clamp(34px,6vw,64px);font-weight:800;font-stretch:72%;letter-spacing:-.01em;line-height:.95;margin:0;text-transform:uppercase;text-wrap:balance}
+.lede{margin:0;max-width:62ch;color:var(--muted);font-size:16px}
+.spec{display:flex;flex-wrap:wrap;gap:8px;font-family:var(--mono);font-size:12.5px}
+.spec span{background:var(--surface);border:1px solid var(--line);padding:6px 10px;font-variant-numeric:tabular-nums}
+.spec b{font-weight:500;color:var(--accent)}
+.detail{display:grid;grid-template-columns:minmax(0,340px) minmax(0,1fr);gap:28px;background:var(--surface);border:1px solid var(--line);padding:22px}
+.detail canvas{width:100%;height:auto;display:block;box-shadow:0 0 0 1px var(--line)}
+.dinfo{display:grid;gap:14px;align-content:start}
+.eyebrow{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.dinfo h2{margin:0;font-size:clamp(26px,3.4vw,38px);font-weight:750;font-stretch:80%;line-height:1.05;text-wrap:balance}
+.status{display:flex;gap:6px;flex-wrap:wrap}
+.pill{font-family:var(--mono);font-size:11px;letter-spacing:.04em;text-transform:uppercase;padding:3px 8px;border:1px solid var(--line)}
+.pill.new{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.pill.svg{border-style:dashed}
+table{border-collapse:collapse;font-family:var(--mono);font-size:13px;font-variant-numeric:tabular-nums;width:100%;max-width:460px}
+th,td{text-align:left;padding:7px 8px;border-bottom:1px solid var(--line)}
+th{font-weight:500;color:var(--muted);font-size:11.5px;text-transform:uppercase;letter-spacing:.06em}
+td.n{text-align:right}
+.sw{display:inline-block;width:14px;height:14px;vertical-align:-2px;margin-right:8px;box-shadow:0 0 0 1px var(--line)}
+.note{font-size:13.5px;color:var(--muted);max-width:60ch;margin:0}
+.tabs{display:flex;flex-wrap:wrap;gap:0;border:1px solid var(--line);width:max-content;max-width:100%;background:var(--surface)}
+.tabs button{font:inherit;font-size:14px;font-weight:600;font-stretch:85%;padding:9px 14px;border:0;border-right:1px solid var(--line);background:transparent;color:var(--ink);cursor:pointer}
+.tabs button:last-child{border-right:0}
+.tabs button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
+.tabs button:focus-visible,.card:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+section.set{display:grid;gap:14px}
+.sethead{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:6px 18px;border-top:2px solid var(--ink);padding-top:10px}
+.sethead h3{margin:0;font-size:22px;font-weight:750;font-stretch:78%;text-transform:uppercase;letter-spacing:.02em}
+.sethead p{margin:0;font-family:var(--mono);font-size:12px;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+@media (min-width:640px){.grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media (min-width:1000px){.grid{grid-template-columns:repeat(5,minmax(0,1fr));gap:20px}}
+.card{all:unset;cursor:pointer;display:grid;gap:7px;align-content:start}
+.card canvas{width:100%;height:auto;display:block;box-shadow:0 0 0 1px var(--line);transition:transform .15s}
+.card:hover canvas{transform:translateY(-2px)}
+.card[aria-current="true"] canvas{box-shadow:0 0 0 3px var(--accent)}
+.cap{display:flex;gap:6px;align-items:baseline;justify-content:space-between}
+.cap span{font-size:13.5px;font-weight:600;font-stretch:88%;line-height:1.2}
+.cap i{font-style:normal;font-family:var(--mono);font-size:10.5px;color:var(--muted);white-space:nowrap}
+.cap i.new{color:var(--accent);font-weight:500}
+.eff{font-family:var(--mono);font-size:10.5px;color:var(--muted);margin-top:-4px}
+.hacks{display:grid;gap:10px;background:var(--surface);border:1px solid var(--line);padding:18px 22px}
+.hacks h3{margin:0;font-size:18px;font-weight:750;font-stretch:80%;text-transform:uppercase;letter-spacing:.03em}
+.hacks ol{margin:0;padding-left:20px;display:grid;gap:6px;max-width:80ch;font-size:14.5px}
+.hacks b{font-weight:650}
+@media (max-width:720px){.detail{grid-template-columns:1fr;padding:16px}.detail canvas{max-width:320px}}
+@media (prefers-reduced-motion:reduce){.card canvas{transition:none}}
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Mudroom floor · mosaic concepts</div>
+    <h1>Mudroom Tile Book</h1>
+    <p class="lede">Every concept at true scale for the 74 × 101 in mudroom, including the station rug from your reference photo, a terracotta set and a set of easy installs. Tap any floor to see it larger with tile counts per colour and how many tiles you'd set by hand.</p>
+    <div class="spec">
+      <span>Room <b>74 × 101 in</b></span>
+      <span>Squares <b>1⅞ in</b> + <b>⅛ in</b> joint (2 in repeat, 6 × 6 per 12 in sheet)</span>
+      <span>Grid <b>36 × 49</b> full + edge cuts <b>15⁄16 in</b> / <b>1 7⁄16 in</b></span>
+      <span>Hex <b>2 in</b> repeat across flats (confirm)</span>
+    </div>
+  </header>
+
+  <div class="detail" id="detail">
+    <canvas id="big" width="680" height="928" aria-label="Selected floor"></canvas>
+    <div class="dinfo">
+      <div class="eyebrow" id="dset"></div>
+      <h2 id="dname"></h2>
+      <div class="status" id="dstatus"></div>
+      <table><thead><tr><th>Colour</th><th class="n" style="text-align:right">Tiles</th><th class="n" style="text-align:right" id="dunit">Sheets +10%</th></tr></thead><tbody id="dcounts"></tbody></table>
+      <p class="note" id="dnote"></p>
+    </div>
+  </div>
+
+  <section class="hacks" aria-labelledby="hacks-h">
+    <h3 id="hacks-h">Install hacks</h3>
+    <ol>
+      <li><b>Design on the sheet.</b> A 12 in sheet is 6 × 6 tiles, so colour changes that land on sheet edges need no hand work. The Easy installs set is built this way.</li>
+      <li><b>Swap strips, not singles.</b> Cut a whole row of 6 off a coloured sheet along the mesh and drop it into a white sheet. Borders and stripes placed on a sheet's outer row go fastest.</li>
+      <li><b>Pop and glue before you set.</b> Pull single tiles off the dots at the kitchen table, stick replacements onto the mesh with a dab of glue, and let them dry. Setting pre-made sheets is far easier than placing loose tiles in thinset.</li>
+      <li><b>Keep cuts plain.</b> Every design here keeps the cut tiles at the walls in one colour, so the cuts never break the pattern.</li>
+      <li><b>Start from the centre line.</b> Snap a chalk line down the middle of the length and lay out from there, so the edge cuts come out equal on both sides.</li>
+      <li><b>Dry lay and number.</b> Lay every sheet out on the floor first and number the backs in order. Order 10% extra of each colour, all from one dye lot.</li>
+      <li><b>Ask about custom sheets.</b> Some suppliers will mount a custom pattern onto sheets from a grid file. Worth asking before you commit to a busy design.</li>
+    </ol>
+    <p class="note">"Hand-set" counts the tiles that differ from their sheet's main colour, which is roughly the number of tiles you'd swap by hand.</p>
+  </section>
+
+  <div class="tabs" role="group" aria-label="Filter by set" id="tabs"></div>
+  <div id="sets" style="display:grid;gap:40px"></div>
+</div>
+
+<script>
+const PAL={
+ can:{black:'#3a3b3d',mustard:'#e3a95a',teal:'#1f4a57',navy:'#243249',rouge:'#a8483a',stone:'#9a9f8e',forest:'#2f4a40',pink:'#e6b9a2',white:'#eeeae0'},
+ fs:{snow:'#f3f2ee',arctic:'#e6e6e1',purewhite:'#efeadb',bone:'#ddd6c0',bonematte:'#eee3c4',sterling:'#b3b6a8',egypt:'#a79c84',beige:'#e1c38e',brown:'#3b3129',anthracite:'#8c8f93',darkgrey:'#6b6e62',black:'#1e1f1c',lakeblue:'#7d9ab7',taupe:'#75756c'},
+ eur:{white:'#f3f1ec',ivory:'#f1ebd9',smoke:'#b9b8b4',charcoal:'#8c8a87',black:'#4d4c4d',ocre:'#e8b36e',coffee:'#c38a63',terracotta:'#b25e45',blue:'#6f8fd6',sage:'#a9c79e'}};
+const NAMES={snow:'Snow white matte',arctic:'Arctic white',purewhite:'Pure white',bone:'Bone',bonematte:'Bone matte',sterling:'Sterling grey',egypt:'Egyptian stone',beige:'Beige',brown:'Brown',anthracite:'Anthracite',darkgrey:'Dark grey',black:'Black',lakeblue:'Lake blue',taupe:'Taupe matte'};
+const nm=k=>NAMES[k]||k[0].toUpperCase()+k.slice(1);
+const SETS=[
+ {id:'can',title:'Canadiana 2x2',pal:'can',kind:'sq',note:'Classic 2x2 on 12 x 12 sheets. Colours sampled from the sample board.',items:[
+  ['framed','Framed rosettes',{f:'white',a:'teal',b:'stone',c:'pink',o:'pink'}],['hall','Hall check',{f:'white',a:'black',b:'mustard'}],['greek','Greek key medallion',{f:'white',a:'navy',b:'stone',c:'mustard'}],['lattice','Diamond lattice',{f:'white',a:'forest',b:'stone',c:'pink'}],['runner','Rug runner',{f:'white',a:'teal',b:'mustard',c:'pink'}],['bands','Checker bands',{f:'white',a:'rouge',b:'stone',c:'mustard'}],['chain','Chain border',{f:'white',a:'black'}],['compass','Compass star',{f:'white',a:'navy',b:'mustard',c:'rouge'}],['deco','Deco corners',{f:'white',a:'forest',b:'mustard',c:'pink'}],['plaid','Plaid',{f:'white',a:'navy',b:'rouge',c:'mustard'}],['nested','Nested medallions',{f:'pink',a:'rouge',b:'white',c:'mustard'}],['vine','Vine',{f:'white',a:'forest',b:'stone',c:'pink'}],['stripes','End stripes',{f:'white',a:'teal',b:'stone',c:'mustard'}],['fade','Fade',{f:'white',a:'navy',b:'teal',c:'mustard'}],['halfdrop','Half-drop rosettes',{f:'white',a:'rouge',b:'pink',c:'mustard'}],
+  ['buffalo','Buffalo check',{f:'white',a:'forest',b:'stone'},1],['mats','Threshold mats',{f:'white',a:'teal',b:'mustard',c:'pink'},1],['crosses','Swiss crosses',{f:'white',a:'rouge',b:'pink'},1],['pinwheel','Pinwheel',{f:'white',a:'navy',b:'mustard'},1],['tram','Tramline border',{f:'white',a:'black',b:'stone',c:'mustard'},1],
+  ['rug','Station rug',{f:'white',a:'rouge',b:'stone',c:'pink'},3],['dborder','Diamond border',{f:'white',a:'forest',b:'stone',c:'pink'},1],['sheetcheck','Sheet check',{f:'white',a:'pink'},1]]},
+ {id:'fs',title:'FS board 5x5 cm',pal:'fs',kind:'sq',note:'Laid out on a 2 in repeat. Confirm the sheet size before ordering, since a 29.8 cm sheet shifts the edge cuts.',items:[
+  ['hall','Hall check',{f:'snow',a:'black',b:'anthracite'}],['greek','Greek key medallion',{f:'bonematte',a:'brown',b:'beige',c:'lakeblue'}],['framed','Framed rosettes',{f:'arctic',a:'lakeblue',b:'sterling',c:'beige',o:'sterling'}],['lattice','Diamond lattice',{f:'bone',a:'darkgrey',b:'sterling',c:'lakeblue'}],['runner','Rug runner',{f:'purewhite',a:'brown',b:'egypt',c:'beige'}],['window','Windowpane',{f:'snow',a:'black',b:'anthracite'}],['chain','Chain border',{f:'bonematte',a:'brown'}],['compass','Compass star',{f:'arctic',a:'black',b:'lakeblue',c:'beige'}],['deco','Deco corners',{f:'bonematte',a:'black',b:'beige',c:'lakeblue'}],['stripes','End stripes',{f:'snow',a:'lakeblue',b:'sterling',c:'beige'}],['nested','Nested medallions',{f:'arctic',a:'anthracite',b:'sterling',c:'lakeblue'}],['confetti','Double frame confetti',{f:'bone',a:'brown',b:'beige',c:'black'}],['plaid','Plaid',{f:'snow',a:'darkgrey',b:'sterling',c:'lakeblue'}],['fade','Fade',{f:'snow',a:'black',b:'anthracite',c:'lakeblue'}],['diagonal','Diagonal stripe',{f:'bonematte',a:'taupe',b:'beige',c:'brown'}],
+  ['buffalo','Buffalo check',{f:'bonematte',a:'brown',b:'beige'},1],['mats','Threshold mats',{f:'snow',a:'black',b:'lakeblue',c:'anthracite'},1],['crosses','Swiss crosses',{f:'arctic',a:'lakeblue',b:'sterling'},1],['pinwheel','Pinwheel',{f:'bone',a:'brown',b:'beige'},1],['tram','Tramline border',{f:'snow',a:'darkgrey',b:'sterling',c:'lakeblue'},1],
+  ['rug','Station rug',{f:'bonematte',a:'brown',b:'lakeblue',c:'beige'},3],['dborder','Diamond border',{f:'snow',a:'black',b:'sterling',c:'lakeblue'},1],['sheetcheck','Sheet check',{f:'bonematte',a:'beige'},1]]},
+ {id:'eur',title:'Eurotile 2x2',pal:'eur',kind:'sq',note:'Square dot mount 2x2 on 12 x 12 sheets.',items:[
+  ['framed','Framed rosettes',{f:'ivory',a:'terracotta',b:'coffee',c:'sage',o:'sage'}],['hall','Hall check',{f:'white',a:'black',b:'smoke'}],['greek','Greek key medallion',{f:'ivory',a:'blue',b:'sage',c:'ocre'}],['lattice','Diamond lattice',{f:'white',a:'terracotta',b:'ocre',c:'sage'}],['runner','Rug runner',{f:'ivory',a:'coffee',b:'terracotta',c:'sage'}],['bands','Checker bands',{f:'white',a:'blue',b:'sage',c:'ocre'}],['chain','Chain border',{f:'ivory',a:'terracotta'}],['compass','Compass star',{f:'white',a:'blue',b:'ocre',c:'terracotta'}],['deco','Deco corners',{f:'ivory',a:'charcoal',b:'ocre',c:'terracotta'}],['plaid','Plaid',{f:'ivory',a:'sage',b:'ocre',c:'terracotta'}],['nested','Nested medallions',{f:'white',a:'coffee',b:'ocre',c:'blue'}],['vine','Vine',{f:'ivory',a:'terracotta',b:'sage',c:'ocre'}],['stripes','End stripes',{f:'white',a:'terracotta',b:'ocre',c:'blue'}],['window','Windowpane',{f:'ivory',a:'charcoal',b:'smoke'}],['column','Rosette column',{f:'white',a:'blue',b:'sage',c:'ocre'}],
+  ['buffalo','Buffalo check',{f:'ivory',a:'terracotta',b:'coffee'},1],['mats','Threshold mats',{f:'ivory',a:'sage',b:'terracotta',c:'ocre'},1],['crosses','Swiss crosses',{f:'white',a:'blue',b:'smoke'},1],['pinwheel','Pinwheel',{f:'ivory',a:'terracotta',b:'ocre'},1],['tram','Tramline border',{f:'white',a:'blue',b:'sage',c:'ocre'},1],
+  ['rug','Station rug',{f:'ivory',a:'charcoal',b:'smoke',c:'coffee'},3],['dborder','Diamond border',{f:'white',a:'blue',b:'sage',c:'ocre'},1],['sheetcheck','Sheet check',{f:'ivory',a:'sage'},1]]},
+ {id:'terra',title:'Terracotta tones',pal:'eur',kind:'sq',note:'Eurotile terracotta, coffee and ocre with ivory. Warmest set, closest to an old quarry-tile floor.',items:[
+  ['rug','Station rug',{f:'ivory',a:'terracotta',b:'coffee',c:'ocre'},3],['hall','Hall check',{f:'ivory',a:'terracotta',b:'coffee'},1],['greek','Greek key medallion',{f:'ivory',a:'terracotta',b:'coffee',c:'ocre'},1],['framed','Framed rosettes',{f:'ivory',a:'terracotta',b:'ocre',c:'coffee',o:'coffee'},1],['lattice','Diamond lattice',{f:'ivory',a:'coffee',b:'ocre',c:'terracotta'},1],['runner','Rug runner',{f:'ivory',a:'terracotta',b:'ocre',c:'coffee'},1],['buffalo','Buffalo check',{f:'ocre',a:'terracotta',b:'coffee'},1],['mats','Threshold mats',{f:'ivory',a:'terracotta',b:'ocre',c:'coffee'},1],['compass','Compass star',{f:'ivory',a:'terracotta',b:'ocre',c:'sage'},1],['deco','Deco corners',{f:'ivory',a:'coffee',b:'terracotta',c:'ocre'},1],['sheetcheck','Sheet check',{f:'ivory',a:'coffee'},1],['fade','Fade',{f:'ivory',a:'terracotta',b:'coffee',c:'ocre'},1]]},
+ {id:'easy',title:'Easy installs',pal:'can',kind:'sq',note:'Built on the 12 in sheet grid: whole sheets change colour, and any hand work is a few tiles per sheet. The extra 49th row is a strip cut from a sheet.',items:[
+  ['sheetcheck','Sheet check',{f:'white',a:'rouge'},1],['sheetborder','Sheet border',{f:'white',a:'teal'},1],['sheetbands','Sheet bands',{f:'white',a:'mustard'},1],['sheetrunner','Sheet runner',{f:'white',a:'pink',b:'rouge'},1],['popdots','Pop-out dots',{f:'white',a:'forest'},1],['popcorners','Corner blocks',{f:'white',a:'navy'},1]]},
+ {id:'hex',title:'Eurotile hexagon',pal:'eur',kind:'hex',note:'Assumes a 2 in repeat across the flats. If the hex measures 2 in point to point, tiles run smaller and counts go up.',items:[
+  ['flowers','Flower garden',{f:'white',a:'sage',b:'sage',c:'ocre'}],['three','Three-tone',{f:'ivory',b:'coffee',c:'terracotta'}],['dots','Dot honeycomb',{f:'white',a:'blue'}],['rings','Ring medallion',{f:'ivory',a:'terracotta',b:'ocre',c:'blue'}],['hstripes','Row stripes',{f:'white',a:'charcoal',b:'smoke'}],['chevron','Chevron',{f:'ivory',a:'sage',b:'ocre'},2],['border','Border and speckle',{f:'white',a:'terracotta',b:'ocre',c:'terracotta'},2],['hfade','Fade',{f:'white',a:'blue',b:'sage'},2],['hrunner','Flower runner',{f:'ivory',a:'terracotta',b:'sage',c:'ocre'},2],['stars','Stars',{f:'white',a:'blue',b:'blue',c:'ocre'},2],['rhombus','Rhombus lattice',{f:'ivory',a:'charcoal',c:'ocre'},2],['garden','Grandmother garden',{f:'white',a:'sage',b:'coffee',c:'ocre'},2],['terrazzo','Terrazzo scatter',{f:'ivory',a:'charcoal',b:'terracotta',c:'sage'},2],['ombre','Side ombre',{f:'white',a:'sage'},2],['panel','Rug panel',{f:'ivory',a:'terracotta',b:'sage',c:'ocre'},2],
+  ['diag','Diagonal bands',{f:'white',a:'blue',b:'sage'},1],['hmats','Threshold mats',{f:'ivory',a:'terracotta',b:'ocre'},1],['outline','Honeycomb outline',{f:'white',a:'charcoal',c:'ocre'},1],['scatter','Scattered flowers',{f:'ivory',a:'terracotta',b:'sage',c:'ocre'},1],['inverse','Inverted garden',{f:'sage',a:'ivory',c:'ocre'},1],
+  ['hexrug','Station rug',{f:'ivory',a:'coffee',b:'smoke',c:'terracotta'},3],['hextri','Triple border',{f:'white',a:'terracotta',b:'ocre',c:'coffee'},1],['hexbloom','Centre bloom',{f:'ivory',a:'terracotta',b:'ocre',c:'sage'},1]]}];
+
+const md=(a,n)=>((a%n)+n)%n;
+function mb(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+let rn=mb(1);
+/* squares: 38 x 51 grid, inches */
+const NC=38,NR=51,TI=1.875;
+const sx=c=>c===0?0:1.0625+(c-1)*2, sw=c=>(c===0||c===NC-1)?0.9375:TI;
+const sy=r=>r===0?0:1.5625+(r-1)*2, sh=r=>(r===0||r===NR-1)?1.4375:TI;
+const A=(c,r)=>({ax:c<19?18-c:c-19,ay:Math.abs(r-25)});
+const M=(dx,dy,small)=>{const a=Math.abs(dx),b=Math.abs(dy);if(a>6||b>6)return null;if(a===0&&b===0)return 'c';if(a+b===1)return 'b';if((a===2&&b===2)||(a===3&&b===2)||(a===2&&b===3))return 'a';if(!small&&((a===5&&(b===4||b===6))||(b===5&&(a===4||a===6))))return 'a';return null};
+const stamp=(pts,c,r,s)=>{for(const[c0,r0]of pts){const v=M(c-c0,r-r0,s);if(v)return v}return null};
+const stampC=(ys,ax,r,s)=>{for(const y0 of ys){const v=M(ax,r-25-y0,s);if(v)return v}return null};
+const key=[[1,1,1,1,1,0],[0,0,0,0,1,0],[1,1,1,0,1,0],[1,0,1,0,1,0],[1,0,0,0,1,0],[1,1,1,1,1,0]];
+const SQ={
+framed:(c,r,ax,ay)=>{if(ax>=17||ay>=24)return 'o';if((ax===16&&ay<=23)||(ay===23&&ax<=16))return 'a';return stamp([[10,12],[27,12],[10,25],[27,25],[10,38],[27,38]],c,r,false)||'f'},
+column:(c,r,ax,ay)=>ax===18?'a':(stampC([-20,-10,0,10,20],ax,r,true)||'f'),
+chain:(c,r,ax,ay)=>{if(ax===18||ay===25)return 'f';if(ax>=13){const u=ax-13,q=md(ay,4);return (q===0&&(u===0||u===4))||((q===1||q===3)&&(u===1||u===3))||(q===2&&u===2)?'a':'f'}if(ay>=20){const t=24-ay,m=md(ax,8);return t===Math.min(m,8-m)?'a':'f'}return 'f'},
+greek:(c,r,ax,ay)=>{if(ax===18)return 'a';if(ay>=24)return 'f';if(ay>=18)return key[23-ay][md(c,6)]?'a':'f';if(ay===16)return 'b';return ({0:'c',1:'b',4:'a',7:'b',8:'a',11:'b'})[ax+ay]||'f'},
+lattice:(c,r,ax,ay)=>{if(ax===18)return 'a';if(ay===25)return 'f';const K=(cc,rr)=>{if(cc<1||cc>36||rr<1||rr>49)return false;const q=A(cc,rr);return md(q.ax+q.ay,8)===4&&md(q.ax-q.ay,8)===4};if(K(c,r))return 'c';if(K(c+1,r)||K(c-1,r)||K(c,r+1)||K(c,r-1))return 'b';return (md(ax+ay,8)===0||md(ax-ay,8)===0)?'a':'f'},
+halfdrop:(c,r,ax,ay)=>{if(ax===18)return 'a';return stamp([[9,13],[28,13],[9,25],[28,25],[9,37],[28,37]],c,r,true)||stampC([-18,-6,6,18],ax,r,true)||'f'},
+bands:(c,r,ax,ay)=>{if(ax===18)return 'a';if(ay===25)return 'f';if(ay<=1||ay===13||ay===14)return (c+r)%2?'a':'f';if(ay===2||ay===12||ay===15||ay===24)return 'b';for(const y0 of[7,19])for(const c0 of[3,9,15,22,28,34]){const s=Math.abs(c-c0)+Math.abs(ay-y0);if(s===0)return 'c';if(s===1)return 'b'}return 'f'},
+window:(c,r,ax,ay)=>{if(ax===18)return 'a';if(ay===25||ax===17)return 'f';const lc=md(ax,5)===2,lr=ay%5===0;return lc&&lr?'a':(lc||lr)?'b':'f'},
+vine:(c,r,ax,ay)=>{if(ax===18)return 'a';if(ay===25)return 'f';for(const s of[5,14,23,32]){const x=c-s,m=md(r,8);if(x===0)return 'b';if((m===2&&(x===1||x===2))||(m===3&&(x===2||x===3))||(m===6&&(x===-1||x===-2))||(m===7&&(x===-2||x===-3)))return 'a';if((m===1&&x===3)||(m===5&&x===-3))return 'c'}return 'f'},
+fade:(c,r,ax,ay)=>{const p=Math.pow(Math.min(ay,24)/24,2.4),h=rn();if(h<p*0.8)return 'a';if(h<p)return 'b';if(ay<11&&rn()<0.012)return 'c';return 'f'},
+nested:(c,r)=>{for(const r0 of[13,25,37])for(const c0 of[10,27]){const m=Math.max(Math.abs(c-c0),Math.abs(r-r0));if(m<=4)return ({0:'c',2:'b',4:'a'})[m]||'f'}return 'f'},
+confetti:(c,r,ax,ay)=>{if(ax>=17||ay>=24)return 'a';if((ax===15&&ay<=22)||(ay===22&&ax<=15))return 'b';if(ax<=13&&ay<=20){const h=rn();if(h<0.06)return 'a';if(h<0.075)return 'c'}return 'f'},
+diagonal:(c,r)=>{const m=md(c+r,7);return m===0?'a':m===1?'b':(m===4&&md(c-r,7)===0)?'c':'f'},
+hall:(c,r,ax,ay)=>{if(ax>=17||ay>=24)return 'a';if(ax===16||ay===23)return 'b';return (c+r)%2?'a':'f'},
+deco:(c,r,ax,ay)=>{if(ax>=17||ay>=24)return 'f';if((ax===16&&ay<=23)||(ay===23&&ax<=16))return 'a';const u=15-ax,v=22-ay,s=u+v;if(u>=0&&v>=0&&s<=4)return s<=1?'a':s<=3?'b':'c';const d=ax+ay;return d<=1?'c':d===3?'a':d===5?'b':'f'},
+plaid:(c,r,ax,ay)=>{if(ax===18||ay===25)return 'f';const vb=ax===5||ax===6,va=ax===12,hb=ay===5||ay===6||ay===17||ay===18,ha=ay===11;if(va&&ha)return 'c';if(vb&&hb)return 'a';if(va||ha)return 'a';if(vb||hb)return 'b';return 'f'},
+compass:(c,r,ax,ay)=>{if(ax===18||ay===25)return 'f';if(ax===17||ay===24)return 'a';const x=ax+0.5,rr=Math.sqrt(x*x+ay*ay);if(rr<=1)return 'c';if((ax===0&&ay<=11)||(ay===0&&ax<=11))return 'a';if(Math.abs(x-ay)<=1&&rr<=8)return 'b';if(Math.abs(rr-14)<0.6)return 'a';return 'f'},
+runner:(c,r,ax,ay)=>{if(ax>11||ay>22)return 'f';if(ax===11||ay===22)return 'a';if(ax===10||ay===21)return 'f';if(ax===9||ay===20)return 'b';const v=stampC([-16,-8,0,8,16],ax,r,true);return v==='c'?'f':v||'c'},
+stripes:(c,r,ax)=>{if(ax===18)return 'f';return ({23:'a',21:'c',20:'c',18:'a',16:'b'})[Math.abs(r-25)]||'f'},
+buffalo:(c,r,ax,ay)=>{if(ax===18||ay===25)return 'a';const bx=Math.floor(ax/3)%2,by=Math.floor(ay/3)%2;return bx&&by?'a':(bx||by)?'b':'f'},
+mats:(c,r,ax,ay)=>{if(ay>=19){if(ax===18||ay===25)return 'a';if(ax===16||ay===23)return 'b';if(ay===19)return 'a';return (ax===17||ay===24)?'a':'a'}if(ay===18)return 'b';if(ax===18)return 'a';return (md(ax,6)===2&&md(ay,6)===3)?'c':'f'},
+crosses:(c,r,ax,ay)=>{if(ax===18||ay===25)return 'b';const i=md(ax,6),j=md(ay,6);if((i===1&&j<=1)||(j===0&&i<=2&&i>=0&&ax>=0&&(i===0||i===1||i===2)))return (i===1&&j===0)?'a':(i===1||j===0)?'a':'f';return 'f'},
+pinwheel:(c,r,ax,ay)=>{if(ax===18||ay===25)return 'a';const i=md(ax,8),j=md(ay,8);if(i<4&&j<4)return i>=j?'a':'f';if(i>=4&&j>=4)return (i-4)<=(j-4)?'b':'f';if(i>=4&&j<4)return (i-4)+j>=3?'a':'f';return i+(j-4)<=3?'b':'f'},
+tram:(c,r,ax,ay)=>{const L=(ax===16&&ay<=23)||(ay===23&&ax<=16)||(ax===14&&ay<=21)||(ay===21&&ax<=14);if(ax>=15&&ay>=22&&ax<=16&&ay<=23)return 'c';if(L)return 'a';if(ax===15||ay===22)return 'b';if(ax>=17||ay>=24)return 'f';return (ax+ay)<=1?'c':'f'}};
+/* crosses cleanup: plus shape on a 6-tile lattice */
+SQ.crosses=(c,r,ax,ay)=>{if(ax===18||ay===25)return 'b';const i=md(ax,6),j=md(ay+3,6);const plus=(i<=1&&j>=2&&j<=4)||(j===3&&i<=2);if(ay>22)return 'f';return plus?'a':'f'};
+
+/* sheet grid: cols 1-36 = 6 sheets, rows 1-48 = 8 sheets; cuts and row 49 join the nearest sheet */
+const SH=(c,r)=>({sc:Math.min(5,Math.max(0,Math.floor((c-1)/6))),sr:Math.min(7,Math.max(0,Math.floor((r-1)/6))),i:md(c-1,6),j:md(r-1,6),inG:c>=1&&c<=36&&r>=1&&r<=48});
+function rugBase(c,r,ax,ay,stepped,motifs){
+  if(ax===18||ay===25)return 'b';
+  const Lx=stepped&&ay<=5?11:13,Ly=stepped&&ax<=4?18:20;
+  if((ax===Lx&&ay<=Ly)||(ay===Ly&&ax<=Lx)||(stepped&&((ay===5&&ax>=11&&ax<=13)||(ax===4&&ay>=18&&ay<=20))))return 'a';
+  if(ax>Lx||ay>Ly){if(ax>Lx&&ay<=20){const d=Math.abs(ax-16)+Math.abs(md(ay+3,6)-3);return d===0?'f':d===1?'c':'b'}const d=Math.abs(ay-23)+Math.abs(md(ax+3,6)-3);return d===0?'f':d===1?'c':'b'}
+  if(motifs){
+    for(const c0 of[13,24])for(const r0 of[12,25,38]){let dx=c-c0,dy=r-r0;if(c0>19)dx=-dx;if(dx===0&&dy===0)return 'c';if(Math.abs(dx)+Math.abs(dy)===1)return 'b';if((dx===2&&dy===1)||(dx===-1&&dy===2)||(dx===-2&&dy===-1)||(dx===1&&dy===-2))return 'a'}
+    for(const[c0,r0]of[[7,18],[30,18],[7,32],[30,32]]){const s=Math.abs(c-c0)+Math.abs(r-r0);if(s===0)return 'b';if(s===1)return 'c'}
+    if(ax===Lx-1&&ay<Ly-1&&md(ay,2)===0)return 'c';if(ay===Ly-1&&ax<Lx-1&&md(ax,2)===0)return 'c';
+  }else{for(const c0 of[13,24]){let dx=c-c0,dy=r-25;if(c0>19)dx=-dx;if(dx===0&&dy===0)return 'c';if(Math.abs(dx)+Math.abs(dy)===1)return 'b';if((dx===2&&dy===1)||(dx===-1&&dy===2)||(dx===-2&&dy===-1)||(dx===1&&dy===-2))return 'a'}}
+  return 'f'}
+Object.assign(SQ,{
+rug:(c,r,ax,ay)=>rugBase(c,r,ax,ay,true,true),
+dborder:(c,r,ax,ay)=>rugBase(c,r,ax,ay,false,false),
+sheetcheck:(c,r)=>{const s=SH(c,r);return (s.sc+s.sr)%2?'a':'f'},
+sheetborder:(c,r)=>{const s=SH(c,r);return (s.sc===0||s.sc===5||s.sr===0||s.sr===7)?'a':'f'},
+sheetbands:(c,r)=>{const s=SH(c,r);return (s.sr===1||s.sr===6)?'a':'f'},
+sheetrunner:(c,r)=>{const s=SH(c,r);if(s.sc===2||s.sc===3)return 'a';return ((s.sc===1&&s.i===5)||(s.sc===4&&s.i===0))&&c>=1&&c<=36?'b':'f'},
+popdots:(c,r)=>{const s=SH(c,r);return s.inG&&s.i===2&&s.j===2?'a':'f'},
+popcorners:(c,r)=>{const s=SH(c,r);return s.inG&&(s.i===0||s.i===5)&&(s.j===0||s.j===5)&&s.sc>0&&s.sc<5?'a':'f'}});
+/* tiles set by hand: tiles that differ from their sheet's main colour */
+function handSet(T){const g={};for(let r=0;r<NR;r++)for(let c=0;c<NC;c++){const s=SH(c,r),k=s.sc+','+s.sr,ro=T[r*NC+c][4];(g[k]||(g[k]={}))[ro]=(g[k][ro]||0)+1}let n=0;for(const k in g){const v=Object.values(g[k]);n+=v.reduce((a,b)=>a+b,0)-Math.max(...v)}return n}
+
+/* hex */
+const HP=2,HRow=HP*Math.sqrt(3)/2,HF=1.875,HPT=HF*2/Math.sqrt(3);
+const Dd=[[1,0],[-1,0],[0,1],[0,-1],[1,-1],[-1,1]];
+const dist=(q,r)=>(Math.abs(q)+Math.abs(r)+Math.abs(q+r))/2;
+const near=(q,r,C,R)=>{let b=99;for(let dq=-R;dq<=R;dq++)for(let dr=-R;dr<=R;dr++){const d=dist(dq,dr);if(d<=R&&d<b&&C(q+dq,r+dr))b=d}return b};
+const L4=(a,b)=>md(a,4)===0&&md(b,4)===0;
+const HX={
+flowers:(q,r,x,y,wx,wy)=>{if(wx<2.2||wy<2.2)return 'b';const n=near(q,r,L4,1);return n===0?'c':n===1?'a':'f'},
+three:(q,r)=>['f','b','c'][md(q-r,3)],
+dots:(q,r,x,y,wx,wy)=>(wx<2.2||wy<2.2||md(q-r,3)===0)?'a':'f',
+rings:(q,r,x,y,wx,wy)=>{if(wx<2.2||wy<2.2)return 'a';const d=dist(q,r);return d===0?'c':(d===4||d===10)?'a':(d===7||d===13)?'b':'f'},
+hstripes:(q,r)=>{const m=md(Math.abs(r),8);return m===0?'a':m===4?'b':'f'},
+chevron:(q,r,x)=>{const qq=x>=0?q:-q-r,m=md(qq,6);return m===0?'a':m===1?'b':'f'},
+border:(q,r,x,y,wx,wy)=>{const w=Math.min(wx,wy);if(w<2.3)return 'a';if(w<4.4)return 'b';return rn()<0.04?'c':'f'},
+hfade:(q,r,x,y)=>{const p=Math.pow(Math.abs(y)/50.5,2.2),h=rn();return h<p*0.8?'a':h<p?'b':'f'},
+hrunner:(q,r,x,y,wx,wy)=>{const ax=Math.abs(x);if(ax>24)return 'f';if(ax>21.9||wy<2.2)return 'a';const n=near(q,r,L4,1);return n===0?'c':n===1?'b':'f'},
+stars:(q,r,x,y,wx,wy)=>{if(wx<2.2||wy<2.2)return 'a';const C=(a,b)=>md(a,6)===0&&md(b,6)===0;if(C(q,r))return 'c';for(const[a,b]of Dd){if(C(q-a,r-b))return 'a';if(C(q-2*a,r-2*b))return 'b'}return 'f'},
+rhombus:(q,r)=>{const P=md(q,4)===0,Q=md(r,4)===0;return P&&Q?'c':(P||Q)?'a':'f'},
+garden:(q,r)=>{const n=near(q,r,(a,b)=>md(a,5)===0&&md(b,5)===0,2);return n===0?'c':n===1?'a':n===2?'b':'f'},
+terrazzo:()=>{const h=rn();return h<0.06?'a':h<0.10?'b':h<0.13?'c':'f'},
+ombre:(q,r,x)=>rn()<Math.pow(Math.abs(x)/37,1.8)?'a':'f',
+panel:(q,r,x,y)=>{const ax=Math.abs(x),ay=Math.abs(y);if(ax>22.7||ay>37.3)return 'f';if(ax>20.7||ay>35.3)return 'a';const n=near(q,r,L4,1);return n===0?'c':n===1?'f':'b'},
+diag:(q,r,x,y,wx,wy)=>{if(wx<2.2||wy<2.2)return 'a';const m=md(q,5);return m===0?'a':m===1?'b':'f'},
+hmats:(q,r,x,y,wx,wy)=>{const ay=Math.abs(y);if(ay>34){if(wx<2.2||wy<2.2)return 'b';return ay<36?'b':'a'}if(wx<2.2)return 'a';return md(q-r,3)===0&&md(r,4)===0?'b':'f'},
+outline:(q,r,x,y,wx,wy)=>{if(wx<2.2||wy<2.2)return 'a';const n=near(q,r,(a,b)=>md(a,6)===0&&md(b,6)===0,3);return n===0?'c':n===3?'a':'f'},
+scatter:(q,r,x,y,wx,wy)=>{if(wx<2.2||wy<2.2)return 'b';let hit=null;for(const[a,b]of[[0,0],...Dd]){const cq=q-a,cr=r-b;if(L4(cq,cr)){const h=mb(cq*131+cr*977+7)();if(h<0.4)hit=(a===0&&b===0)?'c':(h<0.2?'a':'b')}}return hit||'f'},
+inverse:(q,r,x,y,wx,wy)=>{if(wx<2.2||wy<2.2)return 'a';const n=near(q,r,L4,1);return n===0?'c':n===1?'a':'f'},
+hexrug:(q,r,x,y,wx,wy)=>{const w=Math.min(wx,wy);if(w<6.2){const n=near(q,r,L4,1);return n===0?'f':n===1?'c':'b'}if(w<8.1)return 'a';if(w<9.9)return 'f';const n=near(q,r,(a,b)=>md(a,6)===0&&md(b,6)===0,1);return n===0?'c':n===1?'b':'f'},
+hextri:(q,r,x,y,wx,wy)=>{const w=Math.min(wx,wy);return w<2.2?'a':w<4.3?'f':w<6.4?'c':w<8.5?'f':w<10.6?'b':'f'},
+hexbloom:(q,r,x,y,wx,wy)=>{if(wx<2.2||wy<2.2)return 'a';const d=dist(q,r);if(d<=6)return ({0:'c',1:'a',2:'b',3:'a',4:'f',5:'b',6:'a'})[d];const h=Math.hypot(Math.abs(x)-24,Math.abs(y)-38);return h<2.2?'c':h<4.3?'a':'f'}};
+
+/* build tile list for an item: array of [x,y,w,h,role] (squares) or [cx,cy,role] (hex), inches */
+function tiles(set,item,idx){
+  const [pk,,,]=item;rn=mb(11+idx+set.id.length*97);const out=[];
+  if(set.kind==='sq'){for(let r=0;r<NR;r++)for(let c=0;c<NC;c++){const{ax,ay}=A(c,r);out.push([sx(c),sy(r),sw(c),sh(r),SQ[pk](c,r,ax,ay)])}}
+  else{for(let rr=-29;rr<=29;rr++){const odd=md(rr,2);for(let ii=-19;ii<=19;ii++){const x=(ii+odd*0.5)*HP,y=rr*HRow;if(Math.abs(x)>37+1||Math.abs(y)>50.5+1.1)continue;const q=ii-(rr-odd)/2,r=rr;out.push([37+x,50.5+y,0,0,HX[pk](q,r,x,y,37-Math.abs(x),50.5-Math.abs(y))])}}}
+  return out}
+const cache={};
+function colorOf(set,item,role){const m=item[2];const k=m[role]||m.c||m.a;return PAL[set.pal][k]}
+function draw(cv,set,item,idx){
+  const key=set.id+idx;const T=cache[key]||(cache[key]=tiles(set,item,idx));
+  const ctx=cv.getContext('2d'),s=cv.width/74;
+  ctx.fillStyle=getComputedStyle(document.body).getPropertyValue('--grout').trim()||'#cfcbc2';ctx.fillRect(0,0,cv.width,cv.height);
+  if(set.kind==='sq'){for(const[x,y,w,h,ro]of T){ctx.fillStyle=colorOf(set,item,ro);ctx.fillRect(x*s,y*s,w*s,h*s)}}
+  else{ctx.save();ctx.beginPath();ctx.rect(0,0,cv.width,cv.height);ctx.clip();const R=HPT/2*s;for(const[x,y,,,ro]of T){ctx.fillStyle=colorOf(set,item,ro);ctx.beginPath();for(let i=0;i<6;i++){const a=Math.PI/180*(60*i-90);const px=x*s+R*Math.cos(a),py=y*s+R*Math.sin(a);i?ctx.lineTo(px,py):ctx.moveTo(px,py)}ctx.fill()}ctx.restore()}
+}
+function status(set,item){const f=item[3];if(f===1)return ['new','New'];if(f===3)return ['new','From photo'];if(f===2)return ['svg','SVG only'];return ['fig','In Figma']}
+
+const effort=n=>n===0?'no swaps':n<150?'easy':n<500?'medium':'involved';
+let current=null;
+function select(set,item,idx,btn){
+  current=[set,item,idx];document.querySelectorAll('.card[aria-current]').forEach(b=>b.removeAttribute('aria-current'));if(btn)btn.setAttribute('aria-current','true');
+  draw(document.getElementById('big'),set,item,idx);
+  document.getElementById('dset').textContent=set.title+' · '+(idx+1)+' of '+set.items.length;
+  document.getElementById('dname').textContent=item[1];
+  const [cls,label]=status(set,item);
+  const T=cache[set.id+idx];
+  const hs=set.kind==='sq'?handSet(T):null;
+  document.getElementById('dstatus').innerHTML=`<span class="pill ${cls}">${label}</span><span class="pill">${set.kind==='sq'?'38 × 51 grid':'hexagon'}</span>${hs!==null?`<span class="pill">${hs.toLocaleString()} hand-set · ${effort(hs)}</span>`:''}`;const counts={};for(const t of T){const k=item[2][t[4]]||item[2].c||item[2].a;counts[k]=(counts[k]||0)+1}
+  const rows=Object.entries(counts).sort((a,b)=>b[1]-a[1]);
+  document.getElementById('dunit').textContent=set.kind==='sq'?'Sheets +10%':'With 10%';
+  document.getElementById('dcounts').innerHTML=rows.map(([k,n])=>`<tr><td><span class="sw" style="background:${PAL[set.pal][k]}"></span>${nm(k)}</td><td class="n">${n.toLocaleString()}</td><td class="n">${set.kind==='sq'?Math.ceil(n*1.1/36):Math.ceil(n*1.1).toLocaleString()}</td></tr>`).join('');
+  document.getElementById('dnote').textContent=set.note+' Counts include cut tiles at the walls.';
+}
+const tabs=document.getElementById('tabs'),host=document.getElementById('sets');
+const filters=[['all','All sets'],...SETS.map(s=>[s.id,s.title]),['new','New only'],['easiest','Easiest to lay']];
+let saved='all';try{saved=localStorage.getItem('mtb-filter')||'all'}catch(e){}
+function applyFilter(f){
+  tabs.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.f===f)));
+  host.querySelectorAll('.card').forEach(c=>{c.hidden=(f==='new'&&c.dataset.new!=='1')||(f==='easiest'&&c.dataset.easy!=='1')});
+  host.querySelectorAll('section.set').forEach(s=>{const any=[...s.querySelectorAll('.card')].some(c=>!c.hidden);s.hidden=!any||!(f==='all'||f==='new'||f==='easiest'||s.dataset.id===f)});
+  try{localStorage.setItem('mtb-filter',f)}catch(e){}
+}
+for(const[f,l]of filters){const b=document.createElement('button');b.type='button';b.dataset.f=f;b.textContent=l;b.id='tab-'+f;b.onclick=()=>applyFilter(f);tabs.appendChild(b)}
+let first=null;
+SETS.forEach(set=>{
+  const sec=document.createElement('section');sec.className='set';sec.dataset.id=set.id;
+  const nNew=set.items.filter(i=>i[3]===1||i[3]===3).length;
+  sec.innerHTML=`<div class="sethead"><h3>${set.title}</h3><p>${set.items.length} floors · ${nNew} new${set.kind==='hex'?' · 10 SVG only':''}</p></div><div class="grid"></div>`;
+  const g=sec.querySelector('.grid');
+  set.items.forEach((item,idx)=>{
+    const b=document.createElement('button');b.className='card';b.type='button';b.id=`card-${set.id}-${idx}`;b.dataset.new=(item[3]===1||item[3]===3)?'1':'0';
+    const [cls,label]=status(set,item);
+    b.innerHTML=`<canvas width="222" height="303"></canvas><div class="cap"><span>${item[1]}</span><i class="${cls==='new'?'new':''}">${label}</i></div>`;
+    b.setAttribute('aria-label',`${set.title}: ${item[1]}, ${label}`);
+    b.onclick=()=>{select(set,item,idx,b);document.getElementById('detail').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'})};
+    g.appendChild(b);draw(b.querySelector('canvas'),set,item,idx);
+    if(set.kind==='sq'){const n=handSet(cache[set.id+idx]);b.dataset.easy=n<150?'1':'0';const e=document.createElement('div');e.className='eff';e.textContent=n.toLocaleString()+' hand-set · '+effort(n);b.appendChild(e)}
+    if(!first)first=[set,item,idx,b];
+  });
+  host.appendChild(sec);
+});
+const pick=document.getElementById('card-terra-0');select(SETS.find(x=>x.id==='terra'),SETS.find(x=>x.id==='terra').items[0],0,pick);applyFilter(saved);
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>{SETS.forEach(s=>s.items.forEach((it,i)=>{const b=document.getElementById(`card-${s.id}-${i}`);draw(b.querySelector('canvas'),s,it,i)}));if(current)draw(document.getElementById('big'),...current)});
+</script>
+
+</html>
