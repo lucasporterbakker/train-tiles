@@ -122,6 +122,11 @@ const nm=k=>NAMES[k]||k[0].toUpperCase()+k.slice(1);
 const CHAINV=[['teal','white','can'],['black','white','can'],['navy','white','can'],['forest','white','can'],['rouge','white','can'],['terracotta','ivory','eur']];
 const chainMats=CHAINV.map(([a,f,p])=>['chain','Chain border 1 in · '+nm(a),{f,a},1,p,'mat1']);
 const chainFloors=CHAINV.map(([a,f,p])=>['chainx','Chain border · '+nm(a),{f,a},1,p,null,{pk:'chain',roles:{f,a},pal:p,c0:10,r0:7}]);
+/* cartouche and harlequin colourways: [accent, field, palette]. Black on white is the reference photo. */
+const CARTV=[['black','white','can'],['navy','white','can'],['teal','white','can'],['forest','white','can'],['terracotta','ivory','eur'],['coffee','ivory','eur']];
+const cartMats=CARTV.map(([a,f,p])=>['cartouche','Cartouche 1 in · '+nm(a),{f,a},1,p,'mat1']);
+/* mat sits flush to the threshold band, as in the photo */
+const harlequins=CARTV.map(([a,f,p])=>['harlequin','Harlequin · '+nm(a),{f,a},1,p,null,{pk:'cartouche',roles:{f,a},pal:p,c0:10,r0:2}]);
 const SETS=[
  {id:'can',title:'Canadiana 2x2',pal:'can',kind:'sq',note:'Classic 2x2 on 12 x 12 sheets. Colours sampled from the sample board.',items:[
   ['framed','Framed rosettes',{f:'white',a:'teal',b:'stone',c:'pink',o:'pink'}],['hall','Hall check',{f:'white',a:'black',b:'mustard'}],['greek','Greek key medallion',{f:'white',a:'navy',b:'stone',c:'mustard'}],['lattice','Diamond lattice',{f:'white',a:'forest',b:'stone',c:'pink'}],['runner','Rug runner',{f:'white',a:'teal',b:'mustard',c:'pink'}],['bands','Checker bands',{f:'white',a:'rouge',b:'stone',c:'mustard'}],['chain','Chain border',{f:'white',a:'black'}],['compass','Compass star',{f:'white',a:'navy',b:'mustard',c:'rouge'}],['deco','Deco corners',{f:'white',a:'forest',b:'mustard',c:'pink'}],['plaid','Plaid',{f:'white',a:'navy',b:'rouge',c:'mustard'}],['nested','Nested medallions',{f:'pink',a:'rouge',b:'white',c:'mustard'}],['vine','Vine',{f:'white',a:'forest',b:'stone',c:'pink'}],['stripes','End stripes',{f:'white',a:'teal',b:'stone',c:'mustard'}],['fade','Fade',{f:'white',a:'navy',b:'teal',c:'mustard'}],['halfdrop','Half-drop rosettes',{f:'white',a:'rouge',b:'pink',c:'mustard'}],
@@ -155,11 +160,13 @@ const SETS=[
   ['flowers','Flower garden mat',{f:'white',a:'sage',b:'smoke',c:'ocre'},1,'eur','mathex'],
   ['chainpair','Chain border 1 in · teal and blush',{f:'white',a:'teal',b:'stone',c:'pink',o:'pink'},1,'can','mat1'],
   ['chainpair','Chain border 1 in · terracotta and ocre',{f:'ivory',a:'terracotta',b:'coffee',c:'ocre',o:'ocre'},1,'eur','mat1'],
-  ...chainMats]},
+  ...chainMats,
+  ...cartMats]},
  {id:'pairs',title:'Floor and doormat pairs',pal:'can',kind:'sq',unit:'pairs',note:'Each floor here has its 1 in doormat set in at the top end, inside the border. Door position is a guess until the room is measured.',items:[
   ['framedpair','Framed rosettes · teal and blush',{f:'white',a:'teal',b:'stone',c:'pink',o:'pink'},1,'can',null,{pk:'chainpair',roles:{f:'white',a:'teal',b:'stone',c:'pink',o:'pink'},pal:'can',c0:10,r0:6}],
   ['framedpair','Framed rosettes · terracotta and ocre',{f:'ivory',a:'terracotta',b:'coffee',c:'ocre',o:'ocre'},1,'eur',null,{pk:'chainpair',roles:{f:'ivory',a:'terracotta',b:'coffee',c:'ocre',o:'ocre'},pal:'eur',c0:10,r0:6}],
-  ...chainFloors]}];
+  ...chainFloors,
+  ...harlequins]}];
 
 const md=(a,n)=>((a%n)+n)%n;
 function mb(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
@@ -203,6 +210,8 @@ pinwheel:(c,r,ax,ay)=>{if(ax===18||ay===25)return 'a';const i=md(ax,8),j=md(ay,8
 tram:(c,r,ax,ay)=>{const L=(ax===16&&ay<=23)||(ay===23&&ax<=16)||(ax===14&&ay<=21)||(ay===21&&ax<=14);if(ax>=15&&ay>=22&&ax<=16&&ay<=23)return 'c';if(L)return 'a';if(ax===15||ay===22)return 'b';if(ax>=17||ay>=24)return 'f';return (ax+ay)<=1?'c':'f'}};
 /* crosses cleanup: plus shape on a 6-tile lattice */
 /* framed rosettes for the doormat pair: cut ring plain, checker, line, white channel, line. Top rosettes dropped for the mat. */
+/* harlequin: 16 in diamonds (8 wide, 7 tall) on the 45 degree lattice, centred on the room. dc is a half integer so the centre line never lands on a boundary. */
+SQ.harlequin=(c,r,ax,ay)=>{if(ax>=17||ay>=24)return 'a';const dc=c-18.5,dr=r-25;return md(Math.floor((dc+dr)/8)+Math.floor((dc-dr)/8),2)?'f':'a'};
 SQ.framedpair=(c,r,ax,ay)=>{if(ax===18||ay===25)return 'o';if(ax===17||ay===24)return (c+r)%2?'a':'o';if(ax===16||ay===23)return 'a';if(ax===15||ay===22)return 'f';if(ax===14||ay===21)return 'a';return stamp([[11,25],[26,25],[11,38],[26,38]],c,r,false)||'f'};
 SQ.crosses=(c,r,ax,ay)=>{if(ax===18||ay===25)return 'b';const i=md(ax,6),j=md(ay+3,6);const plus=(i<=1&&j>=2&&j<=4)||(j===3&&i<=2);if(ay>22)return 'f';return plus?'a':'f'};
 
@@ -295,6 +304,7 @@ const chainBand=(ax,ay,o=0)=>{const us=ax-13+o,ue=ay-7+o;if(us<0&&ue<0)return nu
 const MAT1={
 chain:(c,r,ax,ay,n)=>{if(n)return 'a';const b=chainBand(ax,ay);return b&&XL(b[0],b[1])?'a':'f'},
 /* the pair mat: checker ring, chain with a dot in each diamond, and a stone block where the band mitres at each inner corner */
+cartouche:(c,r,ax,ay,n)=>{if(n)return 'a';if(ax===17||ay===11)return 'a';const IN=(X,Y)=>X<=14&&Y<=8&&X+Y<=19;return IN(ax,ay)&&!(IN(ax+1,ay)&&IN(ax,ay+1))?'a':'f'},
 chainpair:(c,r,ax,ay,n)=>{if(n)return 'a';if(ax===17||ay===11)return (c+r)%2?'a':'o';const b=chainBand(ax,ay,1);if(!b)return 'f';const us=ax-12,ue=ay-6;if(us>=0&&us<=1&&ue>=0&&ue<=1)return 'b';if(XL(b[0],b[1]))return 'a';return b[0]===2&&md(b[1],4)===0?'c':'f'}};
 const matTiles1=(pk,x0,y0,pre)=>{const out=[];for(let r=0;r<M1R;r++)for(let c=0;c<M1C;c++){const{ax,ay}=M1A(c,r);out.push([x0+c+M1J,y0+r+M1J,T1,T1,pre+MAT1[pk](c,r,ax,ay,numAt1(c,r))])}return out};
 const kindOf=(set,item)=>item[5]||set.kind;
