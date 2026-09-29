@@ -117,16 +117,17 @@ const PAL={
  fs:{snow:'#f3f2ee',arctic:'#e6e6e1',purewhite:'#efeadb',bone:'#ddd6c0',bonematte:'#eee3c4',sterling:'#b3b6a8',egypt:'#a79c84',beige:'#e1c38e',brown:'#3b3129',anthracite:'#8c8f93',darkgrey:'#6b6e62',black:'#1e1f1c',lakeblue:'#7d9ab7',taupe:'#75756c'},
  eur:{white:'#f3f1ec',ivory:'#f1ebd9',smoke:'#b9b8b4',charcoal:'#8c8a87',black:'#4d4c4d',ocre:'#e8b36e',coffee:'#c38a63',terracotta:'#b25e45',blue:'#6f8fd6',sage:'#a9c79e'}};
 const NAMES={snow:'Snow white matte',arctic:'Arctic white',purewhite:'Pure white',bone:'Bone',bonematte:'Bone matte',sterling:'Sterling grey',egypt:'Egyptian stone',beige:'Beige',brown:'Brown',anthracite:'Anthracite',darkgrey:'Dark grey',black:'Black',lakeblue:'Lake blue',taupe:'Taupe matte'};
+/* mixed family: Eurotile tones plus the Canadiana navy */
+PAL.mix={...PAL.eur,navy:PAL.can.navy};
 const nm=k=>NAMES[k]||k[0].toUpperCase()+k.slice(1);
 /* chain border colourways: [accent, field, palette]. Shared by the 1 in doormat and the matching floor. */
 const CHAINV=[['teal','white','can'],['black','white','can'],['navy','white','can'],['forest','white','can'],['rouge','white','can'],['terracotta','ivory','eur']];
 const chainMats=CHAINV.map(([a,f,p])=>['chain','Chain border 1 in · '+nm(a),{f,a},1,p,'mat1']);
-const chainFloors=CHAINV.map(([a,f,p])=>['chainx','Chain border · '+nm(a),{f,a},1,p,null,{pk:'chain',roles:{f,a},pal:p,c0:10,r0:7}]);
+const chainFloors=CHAINV.map(([a,f,p])=>['chainx','Chain border · '+nm(a),{f,a},1,p,null,{pk:'chain',roles:{f,a},pal:p}]);
 /* cartouche and harlequin colourways: [accent, field, palette]. Black on white is the reference photo. */
 const CARTV=[['black','white','can'],['navy','white','can'],['teal','white','can'],['forest','white','can'],['terracotta','ivory','eur'],['coffee','ivory','eur']];
 const cartMats=CARTV.map(([a,f,p])=>['cartouche','Cartouche 1 in · '+nm(a),{f,a},1,p,'mat1']);
-/* mat sits flush to the threshold band, as in the photo */
-const harlequins=CARTV.map(([a,f,p])=>['harlequin','Harlequin · '+nm(a),{f,a},1,p,null,{pk:'cartouche',roles:{f,a},pal:p,c0:10,r0:2}]);
+const harlequins=CARTV.map(([a,f,p])=>['harlequin','Harlequin · '+nm(a),{f,a},1,p,null,{pk:'cartouche',roles:{f,a},pal:p}]);
 const SETS=[
  {id:'can',title:'Canadiana 2x2',pal:'can',kind:'sq',note:'Classic 2x2 on 12 x 12 sheets. Colours sampled from the sample board.',items:[
   ['framed','Framed rosettes',{f:'white',a:'teal',b:'stone',c:'pink',o:'pink'}],['hall','Hall check',{f:'white',a:'black',b:'mustard'}],['greek','Greek key medallion',{f:'white',a:'navy',b:'stone',c:'mustard'}],['lattice','Diamond lattice',{f:'white',a:'forest',b:'stone',c:'pink'}],['runner','Rug runner',{f:'white',a:'teal',b:'mustard',c:'pink'}],['bands','Checker bands',{f:'white',a:'rouge',b:'stone',c:'mustard'}],['chain','Chain border',{f:'white',a:'black'}],['compass','Compass star',{f:'white',a:'navy',b:'mustard',c:'rouge'}],['deco','Deco corners',{f:'white',a:'forest',b:'mustard',c:'pink'}],['plaid','Plaid',{f:'white',a:'navy',b:'rouge',c:'mustard'}],['nested','Nested medallions',{f:'pink',a:'rouge',b:'white',c:'mustard'}],['vine','Vine',{f:'white',a:'forest',b:'stone',c:'pink'}],['stripes','End stripes',{f:'white',a:'teal',b:'stone',c:'mustard'}],['fade','Fade',{f:'white',a:'navy',b:'teal',c:'mustard'}],['halfdrop','Half-drop rosettes',{f:'white',a:'rouge',b:'pink',c:'mustard'}],
@@ -162,11 +163,18 @@ const SETS=[
   ['chainpair','Chain border 1 in · terracotta and ocre',{f:'ivory',a:'terracotta',b:'coffee',c:'ocre',o:'ocre'},1,'eur','mat1'],
   ...chainMats,
   ...cartMats]},
- {id:'pairs',title:'Floor and doormat pairs',pal:'can',kind:'sq',unit:'pairs',note:'Each floor here has its 1 in doormat set in at the top end, inside the border. Door position is a guess until the room is measured.',items:[
-  ['framedpair','Framed rosettes · teal and blush',{f:'white',a:'teal',b:'stone',c:'pink',o:'pink'},1,'can',null,{pk:'chainpair',roles:{f:'white',a:'teal',b:'stone',c:'pink',o:'pink'},pal:'can',c0:10,r0:6}],
-  ['framedpair','Framed rosettes · terracotta and ocre',{f:'ivory',a:'terracotta',b:'coffee',c:'ocre',o:'ocre'},1,'eur',null,{pk:'chainpair',roles:{f:'ivory',a:'terracotta',b:'coffee',c:'ocre',o:'ocre'},pal:'eur',c0:10,r0:6}],
+ {id:'pairs',title:'Floor and doormat pairs',pal:'can',kind:'pair',unit:'pairs',note:'The whole floor with its 1 in doormat drawn above it at the same scale, not overlapping. The mat goes at the door end once the door position is known.',items:[
+  ['framedx','Framed rosettes · teal and blush',{f:'white',a:'teal',b:'stone',c:'pink',o:'pink'},1,'can',null,{pk:'chainpair',roles:{f:'white',a:'teal',b:'stone',c:'pink',o:'pink'},pal:'can'}],
+  ['framedx','Framed rosettes · terracotta and ocre',{f:'ivory',a:'terracotta',b:'coffee',c:'ocre',o:'ocre'},1,'eur',null,{pk:'chainpair',roles:{f:'ivory',a:'terracotta',b:'coffee',c:'ocre',o:'ocre'},pal:'eur'}],
   ...chainFloors,
-  ...harlequins]}];
+  ...harlequins]},
+ {id:'mix',title:'Terracotta, navy and coffee',pal:'mix',kind:'pair',unit:'pairs',note:'Eurotile ivory, terracotta, coffee and ocre with the Canadiana navy. Two suppliers on one floor, so check tile thickness and joint match before ordering.',items:[
+  ['framedx','Framed rosettes · navy and terracotta',{f:'ivory',a:'navy',b:'coffee',c:'terracotta',o:'terracotta'},1,'mix',null,{pk:'chainpair',roles:{f:'ivory',a:'navy',b:'coffee',c:'terracotta',o:'terracotta'},pal:'mix'}],
+  ['framedx','Framed rosettes · terracotta and navy',{f:'ivory',a:'terracotta',b:'coffee',c:'navy',o:'navy'},1,'mix',null,{pk:'chainpair',roles:{f:'ivory',a:'terracotta',b:'coffee',c:'navy',o:'navy'},pal:'mix'}],
+  ['framedx','Framed rosettes · coffee and navy',{f:'ivory',a:'coffee',b:'terracotta',c:'navy',o:'navy'},1,'mix',null,{pk:'chainpair',roles:{f:'ivory',a:'coffee',b:'terracotta',c:'navy',o:'navy'},pal:'mix'}],
+  ['harlequin','Harlequin · navy, terracotta cartouche',{f:'ivory',a:'navy'},1,'mix',null,{pk:'cartouche',roles:{f:'ivory',a:'terracotta'},pal:'mix'}],
+  ['harlequin','Harlequin · terracotta, navy cartouche',{f:'ivory',a:'terracotta'},1,'mix',null,{pk:'cartouche',roles:{f:'ivory',a:'navy'},pal:'mix'}],
+  ['chainx','Chain border · navy and terracotta',{f:'ivory',a:'navy'},1,'mix',null,{pk:'chainpair',roles:{f:'ivory',a:'navy',b:'coffee',c:'terracotta',o:'terracotta'},pal:'mix'}]]}];
 
 const md=(a,n)=>((a%n)+n)%n;
 function mb(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
@@ -210,9 +218,10 @@ pinwheel:(c,r,ax,ay)=>{if(ax===18||ay===25)return 'a';const i=md(ax,8),j=md(ay,8
 tram:(c,r,ax,ay)=>{const L=(ax===16&&ay<=23)||(ay===23&&ax<=16)||(ax===14&&ay<=21)||(ay===21&&ax<=14);if(ax>=15&&ay>=22&&ax<=16&&ay<=23)return 'c';if(L)return 'a';if(ax===15||ay===22)return 'b';if(ax>=17||ay>=24)return 'f';return (ax+ay)<=1?'c':'f'}};
 /* crosses cleanup: plus shape on a 6-tile lattice */
 /* framed rosettes for the doormat pair: cut ring plain, checker, line, white channel, line. Top rosettes dropped for the mat. */
-/* harlequin: 16 in diamonds (8 wide, 7 tall) on the 45 degree lattice, centred on the room. dc is a half integer so the centre line never lands on a boundary. */
-SQ.harlequin=(c,r,ax,ay)=>{if(ax>=17||ay>=24)return 'a';const dc=c-18.5,dr=r-25;return md(Math.floor((dc+dr)/8)+Math.floor((dc-dr)/8),2)?'f':'a'};
-SQ.framedpair=(c,r,ax,ay)=>{if(ax===18||ay===25)return 'o';if(ax===17||ay===24)return (c+r)%2?'a':'o';if(ax===16||ay===23)return 'a';if(ax===15||ay===22)return 'f';if(ax===14||ay===21)return 'a';return stamp([[11,25],[26,25],[11,38],[26,38]],c,r,false)||'f'};
+/* harlequin: each 2 x 2 tile is one diamond, laid on the square, so it is a plain checker inside a dark band. Stock checkerboard sheets exist for this. */
+SQ.harlequin=(c,r,ax,ay)=>{if(ax>=17||ay>=24)return 'a';return (c+r)%2?'a':'f'};
+/* framed rosettes, pair version: cut ring plain, checker, line, white channel, line. Rosettes one column in to clear the inner line. */
+SQ.framedx=(c,r,ax,ay)=>{if(ax===18||ay===25)return 'o';if(ax===17||ay===24)return (c+r)%2?'a':'o';if(ax===16||ay===23)return 'a';if(ax===15||ay===22)return 'f';if(ax===14||ay===21)return 'a';return stamp([[11,12],[26,12],[11,25],[26,25],[11,38],[26,38]],c,r,false)||'f'};
 SQ.crosses=(c,r,ax,ay)=>{if(ax===18||ay===25)return 'b';const i=md(ax,6),j=md(ay+3,6);const plus=(i<=1&&j>=2&&j<=4)||(j===3&&i<=2);if(ay>22)return 'f';return plus?'a':'f'};
 
 /* sheet grid: cols 1-36 = 6 sheets, rows 1-48 = 8 sheets; cuts and row 49 join the nearest sheet */
@@ -238,7 +247,7 @@ sheetrunner:(c,r)=>{const s=SH(c,r);if(s.sc===2||s.sc===3)return 'a';return ((s.
 popdots:(c,r)=>{const s=SH(c,r);return s.inG&&s.i===2&&s.j===2?'a':'f'},
 popcorners:(c,r)=>{const s=SH(c,r);return s.inG&&(s.i===0||s.i===5)&&(s.j===0||s.j===5)&&s.sc>0&&s.sc<5?'a':'f'}});
 /* tiles set by hand: tiles that differ from their sheet's main colour */
-function handSet(T){const g={};for(let r=0;r<NR;r++)for(let c=0;c<NC;c++){const s=SH(c,r),k=s.sc+','+s.sr,ro=T[r*NC+c][4];if(ro==='x')continue;(g[k]||(g[k]={}))[ro]=(g[k][ro]||0)+1}let n=0;for(const k in g){const v=Object.values(g[k]);n+=v.reduce((a,b)=>a+b,0)-Math.max(...v)}return n}
+function handSet(T){const g={};for(let r=0;r<NR;r++)for(let c=0;c<NC;c++){const s=SH(c,r),k=s.sc+','+s.sr,ro=T[r*NC+c][4];(g[k]||(g[k]={}))[ro]=(g[k][ro]||0)+1}let n=0;for(const k in g){const v=Object.values(g[k]);n+=v.reduce((a,b)=>a+b,0)-Math.max(...v)}return n}
 
 /* hex */
 const HP=2,HRow=HP*Math.sqrt(3)/2,HF=1.875,HPT=HF*2/Math.sqrt(3);
@@ -308,14 +317,16 @@ cartouche:(c,r,ax,ay,n)=>{if(n)return 'a';if(ax===17||ay===11)return 'a';const I
 chainpair:(c,r,ax,ay,n)=>{if(n)return 'a';if(ax===17||ay===11)return (c+r)%2?'a':'o';const b=chainBand(ax,ay,1);if(!b)return 'f';const us=ax-12,ue=ay-6;if(us>=0&&us<=1&&ue>=0&&ue<=1)return 'b';if(XL(b[0],b[1]))return 'a';return b[0]===2&&md(b[1],4)===0?'c':'f'}};
 const matTiles1=(pk,x0,y0,pre)=>{const out=[];for(let r=0;r<M1R;r++)for(let c=0;c<M1C;c++){const{ax,ay}=M1A(c,r);out.push([x0+c+M1J,y0+r+M1J,T1,T1,pre+MAT1[pk](c,r,ax,ay,numAt1(c,r))])}return out};
 const kindOf=(set,item)=>item[5]||set.kind;
-const DIMS=k=>(k==='mat'||k==='mathex'||k==='mat1')?[MW,MH]:[74,101];
+/* pair view: mat centred above the floor with a 6 in gap */
+const PY=MH+6,PX=(74-MW)/2;
+const DIMS=k=>(k==='mat'||k==='mathex'||k==='mat1')?[MW,MH]:k==='pair'?[74,101+PY]:[74,101];
 const isHex=k=>k==='hex'||k==='mathex';
 
 /* build tile list for an item: array of [x,y,w,h,role] (squares) or [cx,cy,role] (hex), inches */
 function tiles(set,item,idx){
   const pk=item[0],kd=kindOf(set,item);rn=mb(11+idx+set.id.length*97);const out=[];
-  if(kd==='sq'){const ins=item[6];for(let r=0;r<NR;r++)for(let c=0;c<NC;c++){if(ins&&c>=ins.c0&&c<ins.c0+18&&r>=ins.r0&&r<ins.r0+12){out.push([0,0,0,0,'x']);continue}const{ax,ay}=A(c,r);out.push([sx(c),sy(r),sw(c),sh(r),SQ[pk](c,r,ax,ay)])}
-    if(ins)out.push(...matTiles1(ins.pk,sx(ins.c0)-MJ,sy(ins.r0)-MJ,'m'))}
+  if(kd==='sq'){for(let r=0;r<NR;r++)for(let c=0;c<NC;c++){const{ax,ay}=A(c,r);out.push([sx(c),sy(r),sw(c),sh(r),SQ[pk](c,r,ax,ay)])}}
+  else if(kd==='pair'){for(let r=0;r<NR;r++)for(let c=0;c<NC;c++){const{ax,ay}=A(c,r);out.push([sx(c),PY+sy(r),sw(c),sh(r),SQ[pk](c,r,ax,ay)])}out.push(...matTiles1(item[6].pk,PX,0,'m'))}
   else if(kd==='mat1'){out.push(...matTiles1(pk,0,0,''))}
   else if(kd==='mat'){for(let r=0;r<MR;r++)for(let c=0;c<MC;c++){const{ax,ay}=MA(c,r);out.push([mtx(c),mty(r),TI,TI,MAT[pk](c,r,ax,ay,ringOf(ax,ay),numAt(c,r))])}}
   else if(kd==='mathex'){for(let rr=-9;rr<=9;rr++){const odd=md(rr,2);for(let ii=-11;ii<=11;ii++){const x=(ii+odd*0.5)*HP,y=rr*HRow;if(Math.abs(x)>MW/2+1||Math.abs(y)>MH/2+1.1)continue;const q=ii-(rr-odd)/2,px=MW/2+x,py=MH/2+y;out.push([px,py,0,0,MHX[pk](q,rr,x,y,MW/2-Math.abs(x),MH/2-Math.abs(y),numAt(Math.floor(px/2),Math.floor(py/2)))])}}}
@@ -327,8 +338,10 @@ function draw(cv,set,item,idx){
   const key=set.id+idx;const T=cache[key]||(cache[key]=tiles(set,item,idx));
   const kd=kindOf(set,item),[W,H]=DIMS(kd);
   const ctx=cv.getContext('2d'),s=Math.min(cv.width/W,cv.height/H),ox=(cv.width-W*s)/2,oy=(cv.height-H*s)/2;
-  ctx.fillStyle=getComputedStyle(document.body).getPropertyValue('--grout').trim()||'#cfcbc2';ctx.fillRect(0,0,cv.width,cv.height);
-  if(!isHex(kd)){for(const[x,y,w,h,ro]of T){if(!w)continue;ctx.fillStyle=colorOf(set,item,ro);ctx.fillRect(ox+x*s,oy+y*s,w*s,h*s)}}
+  const cs=getComputedStyle(document.body),grout=cs.getPropertyValue('--grout').trim()||'#cfcbc2';
+  if(kd==='pair'){ctx.fillStyle=cs.getPropertyValue('--bg').trim()||'#e9e8e4';ctx.fillRect(0,0,cv.width,cv.height);ctx.fillStyle=grout;ctx.fillRect(ox+PX*s,oy,MW*s,MH*s);ctx.fillRect(ox,oy+PY*s,74*s,101*s)}
+  else{ctx.fillStyle=grout;ctx.fillRect(0,0,cv.width,cv.height)}
+  if(!isHex(kd)){for(const[x,y,w,h,ro]of T){ctx.fillStyle=colorOf(set,item,ro);ctx.fillRect(ox+x*s,oy+y*s,w*s,h*s)}}
   else{ctx.save();ctx.beginPath();ctx.rect(ox,oy,W*s,H*s);ctx.clip();const R=HPT/2*s;for(const[x,y,,,ro]of T){ctx.fillStyle=colorOf(set,item,ro);ctx.beginPath();for(let i=0;i<6;i++){const a=Math.PI/180*(60*i-90);const px=ox+x*s+R*Math.cos(a),py=oy+y*s+R*Math.sin(a);i?ctx.lineTo(px,py):ctx.moveTo(px,py)}ctx.fill()}ctx.restore()}
 }
 function status(set,item){const f=item[3];if(f===1)return ['new','New'];if(f===3)return ['new','From photo'];if(f===2)return ['svg','SVG only'];return ['fig','In Figma']}
@@ -344,10 +357,10 @@ function select(set,item,idx,btn){
   document.getElementById('dname').textContent=item[1];
   const [cls,label]=status(set,item);
   const T=cache[set.id+idx];
-  const sqLike=kd==='sq'||kd==='mat';
-  const hs=kd==='sq'?handSet(T):kd==='mat'?handSetMat(T):kd==='mat1'?handSetMat(T,M1C,M1R,12):null;
-  const gridLabel=kd==='sq'?(item[6]?'38 × 51 grid + 1 in mat':'38 × 51 grid'):kd==='mat'?'18 × 12 grid · 3 × 2 sheets':kd==='mat1'?'36 × 24 grid · 1 in · 3 × 2 sheets':kd==='mathex'?'hexagon · 36 × 24 in':'hexagon';
-  document.getElementById('dstatus').innerHTML=`<span class="pill ${cls}">${label}</span><span class="pill">${gridLabel}</span>${hs!==null?`<span class="pill">${hs.toLocaleString()} hand-set · ${effort(hs)}</span>`:''}`;const counts={};for(const t of T){const ro=t[4];if(ro==='x')continue;const mat=!!(ro[0]==='m'&&item[6]);const m=mat?item[6].roles:item[2];const k=mat?(m[ro[1]]||m.a):(m[ro]||m.c||m.a);const e=counts[(mat?'m|':'')+k]||(counts[(mat?'m|':'')+k]={k,mat,n:0});e.n++}
+  const sqLike=kd==='sq'||kd==='mat'||kd==='pair';
+  const hs=kd==='sq'||kd==='pair'?handSet(T):kd==='mat'?handSetMat(T):kd==='mat1'?handSetMat(T,M1C,M1R,12):null;
+  const gridLabel=kd==='pair'?'38 × 51 floor + 36 × 24 mat at 1 in':kd==='sq'?'38 × 51 grid':kd==='mat'?'18 × 12 grid · 3 × 2 sheets':kd==='mat1'?'36 × 24 grid · 1 in · 3 × 2 sheets':kd==='mathex'?'hexagon · 36 × 24 in':'hexagon';
+  document.getElementById('dstatus').innerHTML=`<span class="pill ${cls}">${label}</span><span class="pill">${gridLabel}</span>${hs!==null?`<span class="pill">${hs.toLocaleString()} hand-set · ${effort(hs)}</span>`:''}`;const counts={};for(const t of T){const ro=t[4];const mat=!!(ro[0]==='m'&&item[6]);const m=mat?item[6].roles:item[2];const k=mat?(m[ro[1]]||m.a):(m[ro]||m.c||m.a);const e=counts[(mat?'m|':'')+k]||(counts[(mat?'m|':'')+k]={k,mat,n:0});e.n++}
   const per=kd==='mat1'?144:sqLike?36:1;
   const rows=Object.values(counts).sort((a,b)=>(a.mat-b.mat)||(b.n-a.n));
   document.getElementById('dunit').textContent=per>1?'Sheets +10%':'With 10%';
@@ -379,7 +392,7 @@ SETS.forEach(set=>{
     b.onclick=()=>{select(set,item,idx,b);document.getElementById('detail').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'})};
     g.appendChild(b);draw(b.querySelector('canvas'),set,item,idx);
     const kdc=kindOf(set,item);
-    if(kdc==='sq'||kdc==='mat'||kdc==='mat1'){const n=kdc==='sq'?handSet(cache[set.id+idx]):kdc==='mat'?handSetMat(cache[set.id+idx]):handSetMat(cache[set.id+idx],M1C,M1R,12);b.dataset.easy=n<150?'1':'0';const e=document.createElement('div');e.className='eff';e.textContent=n.toLocaleString()+' hand-set · '+effort(n);b.appendChild(e)}
+    if(kdc==='sq'||kdc==='pair'||kdc==='mat'||kdc==='mat1'){const n=kdc==='sq'||kdc==='pair'?handSet(cache[set.id+idx]):kdc==='mat'?handSetMat(cache[set.id+idx]):handSetMat(cache[set.id+idx],M1C,M1R,12);b.dataset.easy=n<150?'1':'0';const e=document.createElement('div');e.className='eff';e.textContent=n.toLocaleString()+' hand-set · '+effort(n);b.appendChild(e)}
     if(!first)first=[set,item,idx,b];
   });
   host.appendChild(sec);
