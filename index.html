@@ -99,6 +99,7 @@ section.set{display:grid;gap:14px}
       <li><b>Swap strips, not singles.</b> Cut a whole row of 6 off a coloured sheet along the mesh and drop it into a white sheet. Borders and stripes placed on a sheet's outer row go fastest.</li>
       <li><b>Pop and glue before you set.</b> Pull single tiles off the dots at the kitchen table, stick replacements onto the mesh with a dab of glue, and let them dry. Setting pre-made sheets is far easier than placing loose tiles in thinset.</li>
       <li><b>The doormat lands on whole sheets.</b> A 36 × 24 in inset is 18 × 12 tiles, which is 3 × 2 full sheets with no cuts on any side. Lay the mat first, then work the field out from it.</li>
+      <li><b>Diagonal fields need a straight border.</b> The harlequin is sheets laid at 45° inside the two ring band. Stock 2 × 2 checkerboard sheets do it with no hand work, and the band hides the triangular cuts.</li>
       <li><b>Keep cuts plain.</b> Every design here keeps the cut tiles at the walls in one colour, so the cuts never break the pattern.</li>
       <li><b>Start from the centre line.</b> Snap a chalk line down the middle of the length and lay out from there, so the edge cuts come out equal on both sides.</li>
       <li><b>Dry lay and number.</b> Lay every sheet out on the floor first and number the backs in order. Order 10% extra of each colour, all from one dye lot.</li>
@@ -218,8 +219,19 @@ pinwheel:(c,r,ax,ay)=>{if(ax===18||ay===25)return 'a';const i=md(ax,8),j=md(ay,8
 tram:(c,r,ax,ay)=>{const L=(ax===16&&ay<=23)||(ay===23&&ax<=16)||(ax===14&&ay<=21)||(ay===21&&ax<=14);if(ax>=15&&ay>=22&&ax<=16&&ay<=23)return 'c';if(L)return 'a';if(ax===15||ay===22)return 'b';if(ax>=17||ay>=24)return 'f';return (ax+ay)<=1?'c':'f'}};
 /* crosses cleanup: plus shape on a 6-tile lattice */
 /* framed rosettes for the doormat pair: cut ring plain, checker, line, white channel, line. Top rosettes dropped for the mat. */
-/* harlequin: each 2 x 2 tile is one diamond, laid on the square, so it is a plain checker inside a dark band. Stock checkerboard sheets exist for this. */
-SQ.harlequin=(c,r,ax,ay)=>{if(ax>=17||ay>=24)return 'a';return (c+r)%2?'a':'f'};
+/* diagonal fields: sheets laid at 45 degrees inside the straight two ring band. Tile (i,j) sits at
+   x = 37 + (i - j) * sqrt2, y = 50.5 + (i + j + 1) * sqrt2, which puts a block corner on the room centre so both mirrors hold.
+   Each tile is clipped to the field rect, so edge pieces are the real triangular cuts. */
+const clipRect=(pts,x0,y0,x1,y1)=>{const cut=(P,inside,inter)=>{const o=[];for(let k=0;k<P.length;k++){const a=P[k],b=P[(k+1)%P.length],ia=inside(a),ib=inside(b);if(ia)o.push(a);if(ia!==ib)o.push(inter(a,b))}return o};
+  const ix=(a,b,x)=>[x,a[1]+(b[1]-a[1])*(x-a[0])/(b[0]-a[0])],iy=(a,b,y)=>[a[0]+(b[0]-a[0])*(y-a[1])/(b[1]-a[1]),y];
+  let P=pts;P=cut(P,q=>q[0]>=x0,(a,b)=>ix(a,b,x0));P=cut(P,q=>q[0]<=x1,(a,b)=>ix(a,b,x1));P=cut(P,q=>q[1]>=y0,(a,b)=>iy(a,b,y0));P=cut(P,q=>q[1]<=y1,(a,b)=>iy(a,b,y1));return P};
+/* harlequin: 2 x 2 blocks alternate, so each diamond is four tiles. A stock checkerboard sheet does this with no hand work. */
+const DG={harlequin:{band:'a',tile:(i,j)=>md(Math.floor(i/2)+Math.floor(j/2),2)?'f':'a'}};
+function diagTiles(pat,ox,oy){const out=[];
+  for(let r=0;r<NR;r++)for(let c=0;c<NC;c++){const{ax,ay}=A(c,r);if(ax>=17||ay>=24)out.push([ox+sx(c),oy+sy(r),sw(c),sh(r),pat.band])}
+  const x0=3,y0=3.5,x1=71,y1=97.5,S=Math.SQRT2,hd=TI/S;
+  for(let i=-40;i<=40;i++)for(let j=-40;j<=40;j++){const x=37+(i-j)*S,y=50.5+(i+j+1)*S;if(x<x0-hd||x>x1+hd||y<y0-hd||y>y1+hd)continue;const P=clipRect([[x-hd,y],[x,y-hd],[x+hd,y],[x,y+hd]],x0,y0,x1,y1);if(P.length<3)continue;out.push([ox+x,oy+y,0,0,pat.tile(i,j),P.map(([px,py])=>[ox+px,oy+py])])}
+  return out}
 /* framed rosettes, pair version: cut ring plain, checker, line, white channel, line. Rosettes one column in to clear the inner line. */
 SQ.framedx=(c,r,ax,ay)=>{if(ax===18||ay===25)return 'o';if(ax===17||ay===24)return (c+r)%2?'a':'o';if(ax===16||ay===23)return 'a';if(ax===15||ay===22)return 'f';if(ax===14||ay===21)return 'a';return stamp([[11,12],[26,12],[11,25],[26,25],[11,38],[26,38]],c,r,false)||'f'};
 SQ.crosses=(c,r,ax,ay)=>{if(ax===18||ay===25)return 'b';const i=md(ax,6),j=md(ay+3,6);const plus=(i<=1&&j>=2&&j<=4)||(j===3&&i<=2);if(ay>22)return 'f';return plus?'a':'f'};
@@ -325,8 +337,8 @@ const isHex=k=>k==='hex'||k==='mathex';
 /* build tile list for an item: array of [x,y,w,h,role] (squares) or [cx,cy,role] (hex), inches */
 function tiles(set,item,idx){
   const pk=item[0],kd=kindOf(set,item);rn=mb(11+idx+set.id.length*97);const out=[];
-  if(kd==='sq'){for(let r=0;r<NR;r++)for(let c=0;c<NC;c++){const{ax,ay}=A(c,r);out.push([sx(c),sy(r),sw(c),sh(r),SQ[pk](c,r,ax,ay)])}}
-  else if(kd==='pair'){for(let r=0;r<NR;r++)for(let c=0;c<NC;c++){const{ax,ay}=A(c,r);out.push([sx(c),PY+sy(r),sw(c),sh(r),SQ[pk](c,r,ax,ay)])}out.push(...matTiles1(item[6].pk,PX,0,'m'))}
+  if(kd==='sq'){if(DG[pk])out.push(...diagTiles(DG[pk],0,0));else for(let r=0;r<NR;r++)for(let c=0;c<NC;c++){const{ax,ay}=A(c,r);out.push([sx(c),sy(r),sw(c),sh(r),SQ[pk](c,r,ax,ay)])}}
+  else if(kd==='pair'){if(DG[pk])out.push(...diagTiles(DG[pk],0,PY));else for(let r=0;r<NR;r++)for(let c=0;c<NC;c++){const{ax,ay}=A(c,r);out.push([sx(c),PY+sy(r),sw(c),sh(r),SQ[pk](c,r,ax,ay)])}out.push(...matTiles1(item[6].pk,PX,0,'m'))}
   else if(kd==='mat1'){out.push(...matTiles1(pk,0,0,''))}
   else if(kd==='mat'){for(let r=0;r<MR;r++)for(let c=0;c<MC;c++){const{ax,ay}=MA(c,r);out.push([mtx(c),mty(r),TI,TI,MAT[pk](c,r,ax,ay,ringOf(ax,ay),numAt(c,r))])}}
   else if(kd==='mathex'){for(let rr=-9;rr<=9;rr++){const odd=md(rr,2);for(let ii=-11;ii<=11;ii++){const x=(ii+odd*0.5)*HP,y=rr*HRow;if(Math.abs(x)>MW/2+1||Math.abs(y)>MH/2+1.1)continue;const q=ii-(rr-odd)/2,px=MW/2+x,py=MH/2+y;out.push([px,py,0,0,MHX[pk](q,rr,x,y,MW/2-Math.abs(x),MH/2-Math.abs(y),numAt(Math.floor(px/2),Math.floor(py/2)))])}}}
@@ -341,7 +353,7 @@ function draw(cv,set,item,idx){
   const cs=getComputedStyle(document.body),grout=cs.getPropertyValue('--grout').trim()||'#cfcbc2';
   if(kd==='pair'){ctx.fillStyle=cs.getPropertyValue('--bg').trim()||'#e9e8e4';ctx.fillRect(0,0,cv.width,cv.height);ctx.fillStyle=grout;ctx.fillRect(ox+PX*s,oy,MW*s,MH*s);ctx.fillRect(ox,oy+PY*s,74*s,101*s)}
   else{ctx.fillStyle=grout;ctx.fillRect(0,0,cv.width,cv.height)}
-  if(!isHex(kd)){for(const[x,y,w,h,ro]of T){ctx.fillStyle=colorOf(set,item,ro);ctx.fillRect(ox+x*s,oy+y*s,w*s,h*s)}}
+  if(!isHex(kd)){for(const[x,y,w,h,ro,poly]of T){ctx.fillStyle=colorOf(set,item,ro);if(poly){ctx.beginPath();poly.forEach(([px,py],k)=>k?ctx.lineTo(ox+px*s,oy+py*s):ctx.moveTo(ox+px*s,oy+py*s));ctx.closePath();ctx.fill()}else ctx.fillRect(ox+x*s,oy+y*s,w*s,h*s)}}
   else{ctx.save();ctx.beginPath();ctx.rect(ox,oy,W*s,H*s);ctx.clip();const R=HPT/2*s;for(const[x,y,,,ro]of T){ctx.fillStyle=colorOf(set,item,ro);ctx.beginPath();for(let i=0;i<6;i++){const a=Math.PI/180*(60*i-90);const px=ox+x*s+R*Math.cos(a),py=oy+y*s+R*Math.sin(a);i?ctx.lineTo(px,py):ctx.moveTo(px,py)}ctx.fill()}ctx.restore()}
 }
 function status(set,item){const f=item[3];if(f===1)return ['new','New'];if(f===3)return ['new','From photo'];if(f===2)return ['svg','SVG only'];return ['fig','In Figma']}
@@ -358,8 +370,8 @@ function select(set,item,idx,btn){
   const [cls,label]=status(set,item);
   const T=cache[set.id+idx];
   const sqLike=kd==='sq'||kd==='mat'||kd==='pair';
-  const hs=kd==='sq'||kd==='pair'?handSet(T):kd==='mat'?handSetMat(T):kd==='mat1'?handSetMat(T,M1C,M1R,12):null;
-  const gridLabel=kd==='pair'?'38 × 51 floor + 36 × 24 mat at 1 in':kd==='sq'?'38 × 51 grid':kd==='mat'?'18 × 12 grid · 3 × 2 sheets':kd==='mat1'?'36 × 24 grid · 1 in · 3 × 2 sheets':kd==='mathex'?'hexagon · 36 × 24 in':'hexagon';
+  const hs=DG[item[0]]?null:kd==='sq'||kd==='pair'?handSet(T):kd==='mat'?handSetMat(T):kd==='mat1'?handSetMat(T,M1C,M1R,12):null;
+  const gridLabel=DG[item[0]]?'diagonal field in a straight band'+(kd==='pair'?' + 36 × 24 mat at 1 in':''):kd==='pair'?'38 × 51 floor + 36 × 24 mat at 1 in':kd==='sq'?'38 × 51 grid':kd==='mat'?'18 × 12 grid · 3 × 2 sheets':kd==='mat1'?'36 × 24 grid · 1 in · 3 × 2 sheets':kd==='mathex'?'hexagon · 36 × 24 in':'hexagon';
   document.getElementById('dstatus').innerHTML=`<span class="pill ${cls}">${label}</span><span class="pill">${gridLabel}</span>${hs!==null?`<span class="pill">${hs.toLocaleString()} hand-set · ${effort(hs)}</span>`:''}`;const counts={};for(const t of T){const ro=t[4];const mat=!!(ro[0]==='m'&&item[6]);const m=mat?item[6].roles:item[2];const k=mat?(m[ro[1]]||m.a):(m[ro]||m.c||m.a);const e=counts[(mat?'m|':'')+k]||(counts[(mat?'m|':'')+k]={k,mat,n:0});e.n++}
   const per=kd==='mat1'?144:sqLike?36:1;
   const rows=Object.values(counts).sort((a,b)=>(a.mat-b.mat)||(b.n-a.n));
@@ -392,7 +404,7 @@ SETS.forEach(set=>{
     b.onclick=()=>{select(set,item,idx,b);document.getElementById('detail').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'})};
     g.appendChild(b);draw(b.querySelector('canvas'),set,item,idx);
     const kdc=kindOf(set,item);
-    if(kdc==='sq'||kdc==='pair'||kdc==='mat'||kdc==='mat1'){const n=kdc==='sq'||kdc==='pair'?handSet(cache[set.id+idx]):kdc==='mat'?handSetMat(cache[set.id+idx]):handSetMat(cache[set.id+idx],M1C,M1R,12);b.dataset.easy=n<150?'1':'0';const e=document.createElement('div');e.className='eff';e.textContent=n.toLocaleString()+' hand-set · '+effort(n);b.appendChild(e)}
+    if(!DG[item[0]]&&(kdc==='sq'||kdc==='pair'||kdc==='mat'||kdc==='mat1')){const n=kdc==='sq'||kdc==='pair'?handSet(cache[set.id+idx]):kdc==='mat'?handSetMat(cache[set.id+idx]):handSetMat(cache[set.id+idx],M1C,M1R,12);b.dataset.easy=n<150?'1':'0';const e=document.createElement('div');e.className='eff';e.textContent=n.toLocaleString()+' hand-set · '+effort(n);b.appendChild(e)}
     if(!first)first=[set,item,idx,b];
   });
   host.appendChild(sec);
